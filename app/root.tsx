@@ -1,5 +1,12 @@
-import type { LinksFunction, MetaFunction } from 'remix';
-import { Links, LiveReload, Meta, Outlet, Scripts, useCatch } from 'remix';
+import type { LinksFunction, MetaFunction } from '@remix-run/node';
+import {
+  Links,
+  LiveReload,
+  Meta,
+  Outlet,
+  Scripts,
+  useCatch,
+} from '@remix-run/react';
 
 import globalStylesUrl from './styles/global.css';
 import globalMediumStylesUrl from './styles/global-medium.css';
@@ -38,7 +45,7 @@ export const meta: MetaFunction = () => {
 
 function Document({
   children,
-  title = `Remix: So great, it's funny!`,
+  title,
 }: {
   children: React.ReactNode;
   title?: string;
@@ -47,7 +54,7 @@ function Document({
     <html lang='en'>
       <head>
         <Meta />
-        <title>{title}</title>
+        {title ? <title>{title}</title> : null}
         <Links />
       </head>
       <body>
@@ -60,6 +67,7 @@ function Document({
 }
 
 export default function App() {
+  // throw new Error("Not implemented");
   return (
     <Document>
       <Outlet />
