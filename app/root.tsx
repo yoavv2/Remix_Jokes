@@ -1,5 +1,5 @@
 import type { LinksFunction } from 'remix';
-import { Links, LiveReload, Outlet } from 'remix';
+import { Links, LiveReload, Outlet, useCatch } from 'remix';
 
 import globalStylesUrl from './styles/global.css';
 import globalMediumStylesUrl from './styles/global-medium.css';
@@ -32,9 +32,9 @@ function Document({
   title?: string;
 }) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <head>
-        <meta charSet="utf-8" />
+        <meta charSet='utf-8' />
         <title>{title}</title>
         <Links />
       </head>
@@ -46,7 +46,6 @@ function Document({
   );
 }
 
-
 export default function App() {
   return (
     <Document>
@@ -54,10 +53,25 @@ export default function App() {
     </Document>
   );
 }
+
+export function CatchBoundary() {
+  const caught = useCatch();
+
+  return (
+    <Document title={`${caught.status} ${caught.statusText}`}>
+      <div className='error-container'>
+        <h1>
+          {caught.status} {caught.statusText}
+        </h1>
+      </div>
+    </Document>
+  );
+}
+
 export function ErrorBoundary({ error }: { error: Error }) {
   return (
-    <Document title="Uh-oh!">
-      <div className="error-container">
+    <Document title='Uh-oh!'>
+      <div className='error-container'>
         <h1>App Error</h1>
         <pre>{error.message}</pre>
       </div>
