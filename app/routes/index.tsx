@@ -1,11 +1,18 @@
+import type { LinksFunction, MetaFunction } from 'remix';
 import { Link } from 'remix';
-import type { LinksFunction } from 'remix';
 
 import stylesUrl from '~/styles/index.css';
+
 export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: stylesUrl }];
 };
-export default function IndexRoute() {
+
+export const meta: MetaFunction = () => ({
+  title: "Remix: So great, it's funny!",
+  description: 'Remix jokes app. Learn Remix and laugh at the same time!',
+});
+
+export default function Index() {
   return (
     <div className='container'>
       <div className='content'>
@@ -16,11 +23,6 @@ export default function IndexRoute() {
           <ul>
             <li>
               <Link to='jokes'>Read Jokes</Link>
-            </li>
-            <li>
-              <Link reloadDocument to='/jokes.rss'>
-                RSS
-              </Link>
             </li>
           </ul>
         </nav>
